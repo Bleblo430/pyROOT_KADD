@@ -47,9 +47,9 @@ U = 2*X + 4*Y
 V = 5*X - 7*Y
 W = -9*X + 10*Y
 
-hu = R.TH1F("hu","hu",200,0,10)
-hv = R.TH1F("hv","hv",200,0,10)
-hw = R.TH1F("hw","hw",200,0,10)
+hu = R.TH1F("hu","hu",200,-20,20)
+hv = R.TH1F("hv","hv",200,-20,20)
+hw = R.TH1F("hw","hw",200,-20,20)
 
 for entry in U:
     hu.Fill(entry)
