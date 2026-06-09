@@ -1,7 +1,7 @@
 import ROOT as R
 
 X = R.TTree("X","X")
-X.ReadFile("dane-zad9.txt","X")
+X.ReadFile("dane-zad8.txt","X")
 
 x = [entry.X for entry in X]
 
@@ -45,13 +45,13 @@ v_mle = poisson_mle.GetNDF()
 T_chi2=0
 for i in range(1, hist.GetNbinsX()+1): #histogramy root maja dodatkowe biny, bin 0 underflow i bin N+1 bin overflow ponieważ range iteruje od do N-1 musimy celować i tak w bin overflow
     n_obs = hist.GetBinContent(i)
-    x = poisson_chi2.Eval(i)
+    x = poisson_chi2.Eval(i-1)
     T_chi2+= ((n_obs-x)**2)/x
 
 T_mle=0
 for i in range(1, hist.GetNbinsX()+1): #histogramy root maja dodatkowe biny, bin 0 underflow i bin N+1 bin overflow ponieważ range iteruje od do N-1 musimy celować i tak w bin overflow
     n_obs = hist.GetBinContent(i)
-    x = poisson_mle.Eval(i)
+    x = poisson_mle.Eval(i-1)
     T_mle+= ((n_obs-x)**2)/x
 
 def chi2test(T,NDF,alpha):
@@ -63,12 +63,16 @@ def chi2test(T,NDF,alpha):
 
 alpha = 0.05
 
+print(T_chi2)
+print(T_mle)
+
 chi2test(T_chi2,v_chi2,alpha)
 chi2test(T_mle,v_mle,alpha)
 
 
 
-
+for i in range(1, hist.GetNbinsX()+1):
+    print(hist.GetBinContent(i),poisson_mle.Eval(i-1))
 
 
 
